@@ -17,3 +17,10 @@ export async function getPokemonInfo(id: number): Promise<PokemonDetails> {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`, { cache: "no-store" });
   return res.json();
 }
+
+
+export async function getPokemonEnemy(): Promise<PokemonDetails> {
+  const enemyNumber = Math.floor(Math.random() * 1000);
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${enemyNumber}/`, { cache: "no-store" });
+  return res.json();
+}

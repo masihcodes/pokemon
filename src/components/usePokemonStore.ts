@@ -14,7 +14,10 @@ export const usePokemonStore = create<PokemonStoreType>()(() => ({
   },
   pokemonModalStatus: false,
   signInModalStatus: false,
-  signUpModalStatus: false
+  signUpModalStatus: false,
+  winModalStatus: false,
+  loseModalStatus: false,
+  fleeModalStatus: false
 }));
 
 
@@ -52,4 +55,16 @@ export function setSignInModalStatus(input: boolean) {
 
 export function setSignUpModalStatus(input: boolean) {
   usePokemonStore.setState({ signUpModalStatus: input });
+}
+
+export function setWinModalStatus(input: boolean) {
+  usePokemonStore.setState({ winModalStatus: input });
+}
+
+export function setLoseModalStatus(input: boolean) {
+  usePokemonStore.setState({ loseModalStatus: input });
+}
+
+export function setFleeModalStatus(input: boolean) {
+  usePokemonStore.setState({ fleeModalStatus: input });
 }

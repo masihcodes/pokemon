@@ -23,6 +23,7 @@ export interface PokemonDetails {
   types: PokemonType[];
   stats: PokemonStat[];
   name?: string;
+  id?: number;
 }
 
 export interface PokemonCardType {
@@ -36,6 +37,9 @@ export interface PokemonStoreType {
   pokemonModalStatus: boolean;
   signInModalStatus: boolean;
   signUpModalStatus: boolean;
+  winModalStatus: boolean;
+  loseModalStatus: boolean;
+  fleeModalStatus: boolean;
 }
 
 

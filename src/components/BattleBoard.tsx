@@ -134,7 +134,7 @@ export default function BattleBoard({ myHero, myEnemy }: { myHero: PokemonDetail
             alt='pokemon'
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${myHero.id}.png`}
             className={`w-48 h-48 drop-shadow-[0_0_30px_rgba(34,211,238,0.3)] ${battle.isMyTurn ? "animate-bounce" : ""}`}
-            style={{ animationDuration: "2s", opacity: Math.max(0, (battle.myHP / myHero.stats[0].base_stat) * 100) }}
+            style={{ animationDuration: "2s", opacity: Math.max(0, battle.myHP / myHero.stats[0].base_stat) }}
           />
         </div>
 
@@ -149,7 +149,7 @@ export default function BattleBoard({ myHero, myEnemy }: { myHero: PokemonDetail
             alt='pokemon'
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${myEnemy.id}.png`}
             className={`w-48 h-48 drop-shadow-[0_0_30px_rgba(34,211,238,0.3)] ${!battle.isMyTurn ? "animate-bounce" : ""}`}
-            style={{ animationDuration: "2s", opacity: Math.max(0, (battle.enemyHP / myEnemy.stats[0].base_stat) * 100) }} />
+            style={{ animationDuration: "2s", opacity: Math.max(0, battle.enemyHP / myEnemy.stats[0].base_stat) }} />
 
           <div className='w-full max-w-sm bg-slate-950 border border-slate-700 rounded-xl p-4 mt-8 shadow-lg shadow-rose-500/10'>
 

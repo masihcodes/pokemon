@@ -16,11 +16,9 @@ export default function Pagination() {
 
   function inc() {
     const params = new URLSearchParams(searchParams.toString());
-
     const newPage = Math.max(0, (Number(params.get("offset")) + 24));
     params.set("offset", String(newPage));
     router.replace(`${pathname}?${params.toString()}`);
-
   }
 
   function dec() {

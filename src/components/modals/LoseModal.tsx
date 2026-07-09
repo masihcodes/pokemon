@@ -29,7 +29,6 @@ export default function LoseModal({ user, pokemonID }: { user: Pick<UserType, "i
       {loseModalStatus &&
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm'>
 
-          {/* <div className='relative rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl shadow-rose-900'> */}
           <div className='relative rounded-2xl border border-slate-700 bg-slate-900 shadow-[0_0_30px] shadow-rose-900'>
 
             <div className="p-8 flex flex-col items-center text-center">

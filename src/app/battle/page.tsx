@@ -34,8 +34,6 @@ export default async function Battle({ searchParams }: { searchParams: { ally: s
   const params = await searchParams
   const myChosenHero = Number(params.ally) || allies[0].pokemonId
 
-  console.log('params.ally', params.ally)
-  console.log('Number(params.ally)', Number(params.ally))
 
   if (params.ally && !(allies.map(item => item.pokemonId).includes(Number(params.ally)))) {
     return (

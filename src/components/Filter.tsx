@@ -21,11 +21,6 @@ export default function Filter() {
   }
 
 
-  // const [userSearchText, setUserSearchText] = useState("")
-  // const filteredPokemonData = allPokemonData.filter(item => item.name.toLowerCase().includes(userSearchText.toLowerCase()))
-  // console.log('filteredPokemonData', filteredPokemonData)
-
-
   return (
     <div className="flex w-full overflow-hidden rounded-xl border border-slate-700 bg-slate-800/50 transition-all focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500">
       <input

@@ -1,10 +1,10 @@
 "use server";
 
-import { PokemonDetails, PokemonListItem } from './types';
+import { PokemonCardType, PokemonDetails, PokemonListItem } from './types';
 
 
 
-export async function getAllPokemon():Promise<PokemonListItem[]> {
+export async function getAllPokemon(): Promise<PokemonListItem[]> {
   const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1340", { cache: "force-cache" })
   if (!res.ok) throw new Error("something went wrong");
   const data = await res.json()
@@ -33,14 +33,12 @@ export async function getPokemonEnemy(): Promise<PokemonDetails> {
 }
 
 
-export async function makePromiseArray(data: PokemonListItem[])
-  // : Promise<Promise<PokemonCardType>[]>
-{
+export async function makePromiseArray(data: PokemonListItem[]): Promise<Promise<PokemonCardType>[]> {
   return data.map(async (item) => {
     const name = item.name
     const id = Number(item.url.split("/").at(-2));
     const details = await getPokemonInfo(id)
-    return {name, id , details}
+    return { name, id, details }
   })
 }
 

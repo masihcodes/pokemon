@@ -59,7 +59,13 @@ export type AllyType = typeof allies.$inferSelect;
 
 
 export const SignupSchema = z.object({
-  name: z.string().trim().min(1, { message: "need at least one character" }).max(50, { message: "maximum characters are 50" }),
+  name: z.string().trim().min(3, { message: "need at least 3 characters" }).max(50, { message: "maximum characters are 50" }),
+  email: z.email().toLowerCase(),
+  password: z.string().min(8, { message: "password should be at least 8 character" }).max(22),
+});
+
+
+export const SigninSchema = z.object({
   email: z.email().toLowerCase(),
   password: z.string().min(8, { message: "password should be at least 8 character" }).max(22),
 });

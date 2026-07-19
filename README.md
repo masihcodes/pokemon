@@ -1,4 +1,4 @@
-# 🎮 PokéVault (DevStack Arena) — Full-Stack Pokédex, Team Roster & Battle Engine
+# 🎮 Full-Stack Pokédex, Team Roster & Battle Engine
 
 <div align="left">
   <img src="https://img.shields.io/badge/Next.js_15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
@@ -14,58 +14,42 @@
 
 <br />
 
-**PokéVault** is an interactive, gamified Full-Stack web application built with **Next.js 15 (App Router)** and **TypeScript**. It combines real-time REST API integration from the **PokéAPI** with a robust, relational database backbone powered by **Neon Serverless Postgres** and **Drizzle ORM**.
+**PokéVault** is a full-stack, web app built with **Next.js 15**, **TypeScript**, and **Neon Postgres**. 
+It lets users explore 1,300+ Pokémon, build a tactical 6-team roster, battle against enemies in a turn-based arena.
 
-Designed with clean code principles and enterprise-grade security, PokéVault allows trainers to explore over 1,300 Pokémon, recruit a tactical roster of up to six allies, engage in dynamic turn-based combat inside the Battle Arena, and climb the global Hall of Fame leaderboard.
 
----
+### 🏗️ Engineering Highlights
 
-## 🏗️ Engineering & Architectural Highlights
+This project focuses on clean code, performance, and real-world full-stack architecture:
 
-This project demonstrates advanced full-stack engineering, seamlessly bridging third-party APIs, relational database transactions, complex client-side state machines, and modern security patterns:
+* **🔐 Silent Token Rotation (JWT):** Built a secure auth system using Access and Refresh tokens. If a session expires mid-game, the server silently issues new `HttpOnly` cookies in the background without interrupting the user's battle. Passwords are securely hashed with `bcrypt`.
+* **⚡ Concurrent API Fetching:** Used `Promise.all` to fetch detailed Pokémon stats in parallel (`pokeAPI.ts`). This eliminates slow sequential requests and drastically cuts page load times.
+* **⚔️ Turn-Based Battle Engine:** Engineered a custom client-side state machine (`BattleBoard.tsx`) with real-time damage math based on actual Pokémon stats, RNG critical hits, defense maneuvers, and automated AI counter-attacks.
+* **🛡️ Server-Side Integrity:** Used Next.js Server Actions to enforce strict business rules (like the 6-ally team limit) and securely update XP scores and rankings in the database via Drizzle ORM.
+* **🎛️ URL-Driven State:** Search filters and pagination sync directly to URL search parameters (`?filter=&offset=`), making pages bookmarkable and fully optimized for Server-Side Rendering (SSR).
+* **🧹 Clean Code & Strict Types:** Used flat control flows (avoiding deeply nested `try...catch` blocks) combined with **Zod** schemas for strict runtime form validation and instant error feedback.
 
-### 1. 🔐 Enterprise-Grade Security & Silent Token Rotation
+<br>
 
-- **Dual JWT Architecture:** Replaces basic session cookies with a robust JSON Web Token (JWT) system utilizing short-lived **Access Tokens** (`accessToken`) and long-lived **Refresh Tokens** (`refreshToken`).
-- **Silent Background Refresh:** Implements seamless background token rotation inside Next.js Server Components (`getUserByCookie`). If an access token expires mid-game, the server silently intercepts the request, verifies the refresh token against the database, issues a brand-new token pair, and sets secure `HttpOnly` cookies—ensuring **zero UX interruption** during active battles.
-- **Zero Plain-Text Credentials:** All user passwords are cryptographically salted and hashed using `bcrypt` prior to database insertion, adhering to industry-standard security practices.
+### ✨ Key Features
 
-### 2. ⚡ Concurrent API Fetching & Performance Optimization
+* **🔍 Pokédex Explorer:** Search, filter, and view base stats (HP, Attack, Defense, Speed) for 1,340+ Pokémon.
+* **🛡️ Tactical Roster:** Build, manage, and inspect a custom fighting team of up to 6 allies.
+* **⚔️ Battle Arena:** Engage in tactical turn-based combat with dynamic health bars and combat logs.
+* **🏆 Hall of Fame:** Climb the global leaderboard by earning XP through battle victories.
+* **🎨 Gamified UI:** A responsive, sci-fi themed interface with animated sprites built using Tailwind CSS.
 
-- **Eliminating Waterfall Requests:** Paginating through Pokémon requires fetching individual statistical details (HP, Attack, Defense, Speed, and Sprites) for each card. Instead of slow sequential requests, the application implements custom concurrent fetching (`makePromiseArray` + `Promise.all`) in `pokeAPI.ts`, drastically reducing page load latency and optimizing server performance.
-
-### 3. ⚔️ Turn-Based Combat Engine & Client State Machine
-
-- **Dynamic Damage Math:** The `/battle` arena is powered by a custom client-side state machine (`BattleBoard.tsx`). Damage is dynamically calculated using real Pokémon base stats (Attack vs. Defense ratios) combined with randomized critical variance (RNG).
-- **Tactical Combat Mechanics:** Features automated timed counter-attacks from AI opponents, turn locks, and defensive maneuvers such as "Turtle Mode" (mitigating incoming damage by 50%). Color-coded health bars dynamically track HP depletion in real time.
-
-### 4. 🛡️ Server-Side Business Logic & Data Integrity
-
-- **Strict Roster Constraints:** Enforces gameplay integrity via Next.js Server Actions (`addAllyAction`). Server-side validation prevents users from recruiting duplicate Pokémon or exceeding the strict 6-ally team limit before executing Drizzle ORM database insertions.
-- **Automated XP & Progression:** Battle outcomes trigger atomic server-side database mutations (`updateUserScore`), automatically awarding +100/150 XP for victories or applying -50 XP penalties for defeats while updating timestamp leaderboards.
-
-### 5. 🎛️ URL-Driven Pagination & Filtering
-
-- **Shareable Pokédex State:** Pokédex pagination (`?offset=`) and real-time name filtering (`?filter=`) are fully synchronized with URL search parameters using Next.js navigation hooks (`useRouter`, `usePathname`, `useSearchParams`). This enables Server-Side Rendering (SSR) and bookmarking of filtered states without client-side page reloads.
-
-### 6. 🛡️ Runtime Type Safety & Clean Code Architecture
-
-- **Flat Error Handling:** Avoids nested `try...catch` blocks (Pyramid of Doom) in favor of flat control flow and guard clauses, ensuring clean, readable, and maintainable TypeScript code.
-- **Schema Validation:** Uses **Zod** (`SignupSchema`, `SigninSchema`) for strict runtime form validation, providing instant, user-friendly error feedback via toast notifications.
+<br>
 
 ---
 
-## ✨ Key Features
-
-- **🔍 Pokédex Explorer:** Browse through 1,340+ Pokémon with instant name filtering, custom pagination, and detailed statistical breakdowns (HP, Attack, Defense, Speed).
-- **🛡️ Tactical Team Roster:** Assemble a customized fighting team of up to 6 Pokémon. View combined roster stats or jump directly into the arena with your chosen champion.
-- **⚔️ Interactive Battle Arena:** Engage in turn-based combat against randomized wild Pokémon. Choose between offensive strikes, defensive blocks, or tactical retreats.
-- **🏆 Hall of Fame Leaderboard:** Compete against trainers globally. View top players ranked by accumulated battle XP with custom medals and achievement timestamps.
-- **🎨 Gamified Sci-Fi UI:** Styled with **Tailwind CSS**, featuring glowing neon health bars, animated battle sprites, responsive layouts, and custom victory/defeat dialog modals.
+### Live Demo: https://pokemon-one-zeta.vercel.app/
 
 ---
 
-## 🛠️ Quick Start & Setup
+<br>
+
+### 🛠️ Quick Start & Setup
 
 ### 1. Clone & Install Dependencies
 
